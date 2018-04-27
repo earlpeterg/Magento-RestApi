@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
 using Magento.RestApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
-using RestSharp.Extensions.MonoHttp;
 using JsonSerializer = Magento.RestApi.Json.JsonSerializer;
 
 namespace Magento.RestApi
@@ -368,6 +368,8 @@ namespace Magento.RestApi
 
             public void SetAdminHtmlFromCookie(string cookieString)
             {
+                if (string.IsNullOrEmpty(cookieString)) return;
+
                 AdminHtml = cookieString.Substring(cookieString.LastIndexOf("adminhtml=", StringComparison.Ordinal)).Replace("adminhtml=", "").Split(';')[0];
             }
         }
